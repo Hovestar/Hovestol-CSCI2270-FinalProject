@@ -1,28 +1,30 @@
 #ifndef LIST_H
 #define LIST_H
 
-template<typename T>
 struct Element
 {
-	T elem;
+	char elem;
 	Element *next;
 	
 	Element(){};
-	Element(T e){
+	Element(char e){
 		elem = e;
 		next = NULL;
 	};
 };
 
-template<typename T>
 class List{
 	public:
 		List();
-		Element<T>* find(T);
-		Element<T>* getIndex(int);
+		List(char);
+		List(char*);
+		Element* find(char);
+		Element* getIndex(int);
 		int operator==(List);
-		Element<T>* start;
-		Element<T>* end;
+		void addElement(char);
+		Element* start;
+		void mutate(double);
+		Element* findLast(Element*);
 }
 
 #endif
