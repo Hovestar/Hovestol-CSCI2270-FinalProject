@@ -6,7 +6,7 @@ struct Element
 	char elem;
 	Element *next;
 	
-	Element(){};
+	Element(){next = NULL;};
 	Element(char e){
 		elem = e;
 		next = NULL;
@@ -25,6 +25,9 @@ class List{
 		Element* start;
 		void mutate(double);
 		Element* findLast(Element*);
+		Element* swapTail(int,Element*);
+		int size();
+		void print();
 }
 
 #endif

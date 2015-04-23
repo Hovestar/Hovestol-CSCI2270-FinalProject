@@ -4,6 +4,8 @@
 #include "LinkedList.h"
 
 
+using namespace std;
+
 int popSize = 100;
 double endProb = 0.1;
 double mutationRate = 0.01;
@@ -41,13 +43,49 @@ int* findFit(List* pop){
 }
 
 int* sortFit(List* &pop){
+	/*Uses selection sort, upgrade to quicksort may be possible. Sorts two lists in unison*/
 	int *fit = findFit(pop);
 	List tmp;
-	int min;
+	int index,pass;
 	for(int i=0;i<popSize;i++){
-		min = -1;
-		
+		index=i;
+		for(int j=i;j<popSize;j++){
+			if(fit[j]<fit[index]){
+				index = j;
+			}
+		}
+		tmp = pop[i];
+		pop[i] = pop[index];
+		pop[index]= tmp;
+		pass = fit[i];
+		fit[i]=fit[index];
+		fit[index] = pass;
 	}
+	return fit;
+}
+
+int choose(){
+	/**Returns an index based on a simple weighting algorithm **/
+	int i = rand()%(((popSize)*(popSize+1))/2);
+	for(int j=0;i>=0;j++) i-=popSize-j;
+	return j-1;
+}
+
+List* newGen(List* pop){
+	/**"mates" two lists the mutates the baby the sticks it on the list**/
+	List* exit = new List[popSize];
+	List mom,dad;
+	int index;
+	exit[0] = pop[0]; //Keeps the best member
+	for(int i=1;i<popSize;i++){
+		dad = pop[choose()];
+		mom = pop[choose()];
+		index = rand()%dad.size();
+		dad.swapTail(index,mom.swapTail(index,NULL)).mutate(mutationRate);
+		exit[i]=dad;
+	}
+	delete[] pop;
+	return exit;
 }
 
 int genLoop(){
@@ -55,4 +93,17 @@ int genLoop(){
 	pop = initPop(pop)
 	int* fit = new int[popSize];
 	fit = sortFit(&pop);
+	int numGens=1;
+	while(fit[0]){
+		numGens++;
+		pop = newGen(pop);
+		fit = sortFit(&pop);
+	}
+}
+
+int main(){
+	/**Main used for testing.**/
+	//test list
+	List i('abcd');
+	i.print();
 }

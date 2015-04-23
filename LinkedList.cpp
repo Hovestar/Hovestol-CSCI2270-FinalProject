@@ -1,6 +1,8 @@
 #include "LinkedList.h"
 #include <cstdlib>
 
+using namespace std;
+
 char* chars = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 int bases=53;
 
@@ -23,17 +25,19 @@ List::List(char* a){
 }
 Element* List::find(char i){
 	//Find element in the list with value i
-	for(Element* m=start;m&&m->elem!=i;m=m->next);
+	Element* m=start
+	for(;m&&m->elem!=i;m=m->next);
 	return m;
 }
 Element* List::getIndex(int i){
-	//finds the ith element
-	for(Element* m=start;i>0;i--){
+	//finds the ith element or returns final element
+	for(Element* m=start;i>0&&m->next;i--){
 		m = m->next;
 	}
 	return m;
 }
 void List::addElement(char a){
+	/**Addes a as an element to the end**/
 	if(!start)start = new Element(a);
 	else{
 		Element* tmp=start;
@@ -42,7 +46,7 @@ void List::addElement(char a){
 	}
 }
 int List::operator==(List other){
-	//Returns 0 if they are = otherwise return the #of differnces
+	//Returns 0 if they are = otherwise returns the #of differnces
 	//Upgrade: Find largerst chains of similarities without using charactors 2 times.
 	// or out of order?
 	Element* m,n;
@@ -61,6 +65,7 @@ int List::operator==(List other){
 	return out;
 }
 Element* List::findLast(Element* curr){
+	/**Finds the parent of an Element**/
 	Element* tmp=start;
 	if(tmp == curr){
 		return NULL;
@@ -69,6 +74,7 @@ Element* List::findLast(Element* curr){
 	return tmp;
 }
 void List::mutate(double rate){
+	/**Used in new Generation, mutates the strand base by base**/
 	Element* tmp = start;
 	for(;tmp;tmp=tmp->next){
 		if(rate>((float)rand()/(float)RAND_MAX)){
@@ -107,4 +113,29 @@ void List::mutate(double rate){
 			}
 		}
 	}
+}
+Element* List::swapTail(int index, Element* tail){
+	/**Takes an Element* and replaces everything after index i with it.
+	 * Used for crossing over in new generation**/
+	Element *end,*parent;//The part of the list returned
+	if(index==0){
+		end = start;
+		start = tail;
+		return end;
+	}
+	parent = getIndex(index-1);
+	end = parent->next;
+	parent->next = tail;
+	return end;
+}
+int List::size(){
+	/**Returns size of list**/
+	int end = 0;
+	for(Element* m=start;m;m=m->next)end++;
+	return end;
+}
+void List::print(){
+	for(Element* m=start;m;m=m->next)
+	cout << m->elem;
+	cout << endl;
 }
