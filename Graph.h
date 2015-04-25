@@ -28,17 +28,11 @@ class Graph
 		void displayEdges();
 		void findDistricts();
 		void findPath(std::string,std::string);
-		bool inDistrict(int);
-		void districtHelper(int,int);
 		int index(vertex);
 		int index(std::string);
 		void printHelp(vertex*,int);
 		void printHelp(vertex*);
-		void BFS();
-		void Dijkstra();
-	protected:
-	private:
-		//vector<edge> edges;
+		void BFS(std::string,std::string);
 		std::vector<vertex*> vertices;
 
 };
