@@ -1,5 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
+#include <cstddef>
 
 struct Element
 {
@@ -20,7 +21,7 @@ class List{
 		List(char*);
 		Element* find(char);
 		Element* getIndex(int);
-		int operator==(List);
+		int compare(List);
 		void addElement(char);
 		Element* start;
 		void mutate(double);
@@ -28,6 +29,6 @@ class List{
 		Element* swapTail(int,Element*);
 		int size();
 		void print();
-}
+};
 
 #endif

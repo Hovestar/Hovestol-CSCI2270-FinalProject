@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <ctime>
-#include <stdio>
+#include <iostream>
 #include "LinkedList.h"
 
 
@@ -9,10 +9,10 @@ using namespace std;
 int popSize = 100;
 double endProb = 0.1;
 double mutationRate = 0.01;
-List std; //standard string
+List standard; //standard string
 
-char* chars = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-int bases = 53 // size of char* chars
+const char chars[] = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const int bases = 53; // size of char* chars
 
 List* initPop(List*);
 float randomFloat();
@@ -22,7 +22,7 @@ List* initPop(List* pop){
 	/**Creates population 
 	 * **/
 	for(int i=0;i<popSize;i++){
-		while(endProb<randomFloat){
+		while(endProb<randomFloat()){
 			pop[i].addElement(chars[rand()%bases]);
 		}
 	}
@@ -37,7 +37,7 @@ float randomFloat(){
 int* findFit(List* pop){
 	int* fit = new int[popSize];
 	for(int i=0;i<popSize;i++){
-		fit[i]=(pop==std);
+		fit[i]=pop[i].compare(standard);
 	}
 	return fit;
 }
@@ -67,7 +67,8 @@ int* sortFit(List* &pop){
 int choose(){
 	/**Returns an index based on a simple weighting algorithm **/
 	int i = rand()%(((popSize)*(popSize+1))/2);
-	for(int j=0;i>=0;j++) i-=popSize-j;
+	int j;
+	for(j=0;i>=0;j++) i-=popSize-j;
 	return j-1;
 }
 
@@ -81,7 +82,7 @@ List* newGen(List* pop){
 		dad = pop[choose()];
 		mom = pop[choose()];
 		index = rand()%dad.size();
-		dad.swapTail(index,mom.swapTail(index,NULL)).mutate(mutationRate);
+		dad.swapTail(index,mom.swapTail(index,NULL))->mutate(mutationRate);
 		exit[i]=dad;
 	}
 	delete[] pop;
@@ -90,7 +91,7 @@ List* newGen(List* pop){
 
 int genLoop(){
 	List* pop = new List[popSize];
-	pop = initPop(pop)
+	pop = initPop(pop);
 	int* fit = new int[popSize];
 	fit = sortFit(&pop);
 	int numGens=1;
@@ -104,6 +105,7 @@ int genLoop(){
 int main(){
 	/**Main used for testing.**/
 	//test list
-	List i('abcd');
+	char test[] = "abcd";
+	List i(test);
 	i.print();
 }

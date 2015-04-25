@@ -1,9 +1,10 @@
 #include "LinkedList.h"
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-char* chars = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+char chars[] = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 int bases=53;
 
 List::List(){
@@ -25,13 +26,14 @@ List::List(char* a){
 }
 Element* List::find(char i){
 	//Find element in the list with value i
-	Element* m=start
+	Element* m=start;
 	for(;m&&m->elem!=i;m=m->next);
 	return m;
 }
 Element* List::getIndex(int i){
 	//finds the ith element or returns final element
-	for(Element* m=start;i>0&&m->next;i--){
+	Element* m;
+	for(m=start;i>0&&m->next;i--){
 		m = m->next;
 	}
 	return m;
@@ -45,14 +47,14 @@ void List::addElement(char a){
 		tmp->next = new Element(a);
 	}
 }
-int List::operator==(List other){
+int List::compare(List other){
 	//Returns 0 if they are = otherwise returns the #of differnces
 	//Upgrade: Find largerst chains of similarities without using charactors 2 times.
 	// or out of order?
-	Element* m,n;
+	Element* m,*n;
 	m=start;
 	n = other.start;
-	int out = 0
+	int out = 0;
 	while(n&&m){
 		if(n->elem != m->elem){
 			out+=1;
