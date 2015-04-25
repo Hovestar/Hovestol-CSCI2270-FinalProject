@@ -1,11 +1,15 @@
 --Project Summary--
-This is a genetic algorithm that is run off of a linked list rather than 
-an array, which allows for dynamic length genes. 
+The genetic algorithm seg faulted before it even entered main, so 
+I'm now going to run a program that finds the average time for a train 
+to run around a track and pick up 4 carages from each depot and then 
+retunr them to home base. Based on 
+https://itunes.apple.com/us/app/railroad-train/id431485490?mt=8 
+It has interested me for a while to see what causes advantages and 
+disadvantages in the game for an individual train.
 
 --How to Run--
-Compile the LinkedList.* and Gene.cpp with g++
-Then feed it the string you want it to match when you run it and it will print the 
-best string of every generation. 
+Compile Graph and main.cpp with g++
+
 
 --Dependencies--
 
@@ -19,4 +23,4 @@ Just me. (Seth Hovestol)
 --Contributors--
 
 --Open issues/bugs/future--
-Hopefully get this to do the bitwise lab in systems
+Multiple trains
