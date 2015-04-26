@@ -13,16 +13,25 @@ Graph::Graph(){
 Graph::~Graph(){
 	//dtor
 }
-void Graph::addEdge(string v1, string v2, int weight){
+void Graph::addEdge(int v1, int v2, int weight,vector<int> bases,vector<int> depots){
 	/**Adds an edge from v1 to v2 with weight**/
 	int i = index(v1);
 	int j = index(v2);
 	adjVertex av;
 	av.v = vertices[j];
 	av.weight = weight;
+	
+	av.bases = bases;
+	av.depots = depots;
+	vector<int> stock;
+	for(int i=0;i<depots.size();i++){
+		stock.push_back(4);
+	}
+	av.stock = stock;
+	
 	vertices[i]->adj.push_back(av);
 }
-void Graph::addVertex(string n){
+void Graph::addVertex(int n){
 	/*If a vertex doesn't already exist it adds it.*/
 	for(int i = 0; i < vertices.size(); i++){
 		if(vertices[i]->name == n){
@@ -54,7 +63,7 @@ int Graph::index(vertex n){
 	}
 	return -1;
 }
-int Graph::index(string n){
+int Graph::index(int n){
 	//gets index of vertex with name n
 	for(int i=0;i<vertices.size();i++){
 		if(n == vertices[i]->name)return i;
@@ -79,7 +88,7 @@ void Graph::printHelp(vertex* e){
 		std::cout << "," << e->name;
 	}
 }
-void Graph::BFS(std::string name1,std::string name2){
+void Graph::BFS(int name1,int name2){
 	int s,e,z,j;
 	s = index(name1);
 	e = index(name2);
@@ -105,4 +114,10 @@ void Graph::BFS(std::string name1,std::string name2){
 	}	
 	printHelp(vertices[e],0);
 	cout << endl;
+}
+void Graph::reset(){
+	for(int i=0;i<vertices.size();i++)
+		for(int j=0;j<vertices[i]->adj.size();j++)
+			for(int k=0;k<vertices[i]->adj[j].stock.size();k++)
+				vertices[i]->adj[j].stock[k]=4;
 }

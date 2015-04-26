@@ -8,10 +8,13 @@ struct vertex;
 struct adjVertex{
 	vertex *v;
 	int weight;
+	std::vector<int> depots;//depots here
+	std::vector<int> bases;//bases here
+	std::vector<int> stock;//stock for the depots
 };
 
 struct vertex{
-	std::string name;
+	int name;
 	bool visited;
 	int distance;
 	vertex *previous;
@@ -23,17 +26,18 @@ class Graph
 	public:
 		Graph();
 		~Graph();
-		void addEdge(std::string v1, std::string v2, int weight);
-		void addVertex(std::string name);
+		void addEdge(int v1, int v2, int weight,std::vector<int>,std::vector<int>);
+		void addVertex(int name);
 		void displayEdges();
 		void findDistricts();
-		void findPath(std::string,std::string);
+		void findPath(int,int);
 		int index(vertex);
-		int index(std::string);
+		int index(int);
 		void printHelp(vertex*,int);
 		void printHelp(vertex*);
-		void BFS(std::string,std::string);
+		void BFS(int,int);
 		std::vector<vertex*> vertices;
+		void reset();
 
 };
 

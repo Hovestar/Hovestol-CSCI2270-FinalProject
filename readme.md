@@ -24,3 +24,7 @@ Just me. (Seth Hovestol)
 
 --Open issues/bugs/future--
 Multiple trains
+This is simplifed:
+-Occasional 2 cars
+-Always drops off before pick up
+-doesn't compete with other trains or run into itself
