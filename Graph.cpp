@@ -7,6 +7,7 @@
 using namespace std;
 
 Graph::Graph(){
+	//Doesn't need anything initalized
 	;
 }
 
@@ -71,6 +72,7 @@ int Graph::index(int n){
 	return -1;
 }
 void Graph::printHelp(vertex* e,int c){
+	//Used to print shortest path, for debugging
 	if(e->previous == NULL) {
 		cout << c << "," << e->name;
 	}
@@ -80,6 +82,7 @@ void Graph::printHelp(vertex* e,int c){
 	}	
 }
 void Graph::printHelp(vertex* e){
+	//Used to print shortest path, for debugging
 	if(e == NULL) {
 		;
 	}
@@ -89,6 +92,7 @@ void Graph::printHelp(vertex* e){
 	}
 }
 void Graph::BFS(int name1,int name2){
+	//Does a Breadth first search
 	int s,e,z,j;
 	s = index(name1);
 	e = index(name2);
@@ -116,6 +120,7 @@ void Graph::BFS(int name1,int name2){
 	cout << endl;
 }
 void Graph::reset(){
+	//Resets the stock for all depots
 	for(int i=0;i<vertices.size();i++)
 		for(int j=0;j<vertices[i]->adj.size();j++)
 			for(int k=0;k<vertices[i]->adj[j].stock.size();k++)
